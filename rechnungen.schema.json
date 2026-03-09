@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pkv-tracker.local/rechnungen.schema.json",
+  "title": "PKV Invoice Import",
+  "description": "Array of invoice entries for import.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["provider", "amountPaid", "receivedDate"],
+    "properties": {
+      "id": { "type": "string" },
+      "provider": { "type": "string", "minLength": 1 },
+      "rechnungNr": { "type": "string" },
+      "category": { "type": "string" },
+      "person": { "type": "string" },
+
+      "receivedDate": { "type": "string", "format": "date" },
+      "paidDate": { "type": "string", "format": "date" },
+      "submittedDate": { "type": "string", "format": "date" },
+      "pkvResponseDate": { "type": "string", "format": "date" },
+
+      "amountPaid": { "type": "string" },
+      "reimbursedAmount": { "type": "string" },
+      "notes": { "type": "string" },
+
+      "createdAt": { "type": "number" },
+      "updatedAt": { "type": "number" }
+    }
+  }
+}
