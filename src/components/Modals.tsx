@@ -217,3 +217,30 @@ export function ImportChoiceModal({
     </div>
   );
 }
+
+export function HelpModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4" onClick={onClose}>
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg p-5" onClick={(e) => e.stopPropagation()}>
+        <div className="flex justify-between items-center mb-3">
+          <h2 className="font-semibold text-gray-800">How to use this app</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-sm">Close</button>
+        </div>
+        <p className="text-xs text-gray-500 mb-3">
+          This is a simple, client-side tracker for invoices and reimbursements. Nothing is uploaded anywhere; your data is stored in your browser.
+        </p>
+        <ul className="list-disc pl-5 space-y-2 text-sm text-gray-600">
+          <li><span className="font-medium">Add invoices</span>: click <span className="font-medium">Insert Invoice</span> (or import a JSON export).</li>
+          <li><span className="font-medium">Move through the workflow</span>: use the row actions to set <span className="font-medium">Paid</span> → <span className="font-medium">Submitted</span> → record the insurer response (reimbursed / partial / rejected).</li>
+          <li><span className="font-medium">Find things fast</span>: use tabs per person, free-text search, status/year filters, and sorting.</li>
+          <li><span className="font-medium">Backup / transfer</span>: use <span className="font-medium">Export JSON</span> regularly and keep the file somewhere safe. You can import by selecting a file or by dragging a JSON file onto the page.</li>
+        </ul>
+        <div className="mt-5">
+          <button onClick={onClose} className="w-full bg-blue-600 text-white text-sm py-2 rounded-lg hover:bg-blue-700">
+            Got it
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

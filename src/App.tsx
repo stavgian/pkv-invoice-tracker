@@ -5,7 +5,7 @@ import { deriveStatus, getYear, generateId, nowTs, parseAmount } from "./utils";
 import { Summary } from "./components/Summary";
 import { EntryRow } from "./components/EntryRow";
 import { EntryForm } from "./components/EntryForm";
-import { QuickPaidModal, QuickSubmitModal, QuickReimburseModal, ConfirmDeleteModal, ImportChoiceModal, ExportModal } from "./components/Modals";
+import { QuickPaidModal, QuickSubmitModal, QuickReimburseModal, ConfirmDeleteModal, ImportChoiceModal, ExportModal, HelpModal } from "./components/Modals";
 
 const ALL_TAB = "All";
 type ActiveTab = Person | typeof ALL_TAB;
@@ -75,6 +75,7 @@ export default function App() {
   const [createFormVersion, setCreateFormVersion] = useState(0);
   const [showExport, setShowExport] = useState(false);
   const [exportJson, setExportJson] = useState("");
+  const [showHelp, setShowHelp] = useState(false);
   const [editEntry, setEditEntry] = useState<Entry | null>(null);
   const [filterText, setFilterText] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -341,6 +342,7 @@ export default function App() {
         />
       )}
       {showExport && <ExportModal json={exportJson} onClose={() => setShowExport(false)} />}
+      {showHelp && <HelpModal onClose={() => setShowHelp(false)} />}
       {showForm && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4" onClick={() => setShowForm(false)}>
           <div className="w-full max-w-3xl" onClick={(e) => e.stopPropagation()}>
@@ -370,6 +372,7 @@ export default function App() {
       )}
 
       <div className="absolute top-4 right-4 z-10 flex gap-1.5 flex-nowrap">
+        <button onClick={() => setShowHelp(true)} className="text-[11px] text-gray-500 border border-gray-200/80 bg-white/90 px-2.5 py-1 rounded-md hover:bg-gray-50 whitespace-nowrap leading-none shadow-sm">Help</button>
         <label className="text-[11px] text-gray-500 border border-gray-200/80 bg-white/90 px-2.5 py-1 rounded-md hover:bg-gray-50 cursor-pointer whitespace-nowrap inline-flex items-center leading-none shadow-sm">Import JSON<input type="file" accept=".json" className="hidden" onChange={handleImport} /></label>
         <button onClick={openExportModal} className="text-[11px] text-gray-500 border border-gray-200/80 bg-white/90 px-2.5 py-1 rounded-md hover:bg-gray-50 whitespace-nowrap leading-none shadow-sm">Export JSON</button>
       </div>
@@ -379,7 +382,7 @@ export default function App() {
           <h1 className="text-xl font-bold text-gray-800">PKV Tracker</h1>
           <p className="text-xs text-gray-400">Private health insurance reimbursements</p>
           <p className="text-xs text-gray-500 mt-2">
-            Insert or import invoices, update status from Paid to Submitted to Reimbursed, then export JSON regularly as a backup.
+            Track invoices from received → paid → submitted → insurer response. Use <button type="button" className="text-blue-600 hover:underline" onClick={() => setShowHelp(true)}>Help</button> for details.
           </p>
         </div>
       </div>
